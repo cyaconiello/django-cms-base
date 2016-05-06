@@ -51,6 +51,7 @@ Thumbs.db
 
 # Vagrant/Chef Additions
 .vagrant
+/chef/
 /chef/tmp
 /chef/cookbooks
 /chef/Cheffile.lock
