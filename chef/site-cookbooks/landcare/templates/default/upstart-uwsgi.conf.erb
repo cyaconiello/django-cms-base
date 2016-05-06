@@ -1,0 +1,8 @@
+description "uWSGI server for <%= node[:app][:name] %>" 
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+
+exec uwsgi --ini <%= node[:app][:paths][:site] %>/uwsgi.ini

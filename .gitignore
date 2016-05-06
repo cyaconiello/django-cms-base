@@ -1,0 +1,56 @@
+# Installed modules #
+#####################
+node_modules
+
+# Generated files #
+###################
+
+# Webpack
+landcare/static/dist
+
+# Django admin uploaded media
+media
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.pyc
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite*
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+.svn
+.orig
+
+# Vagrant/Chef Additions
+.vagrant
+/chef/tmp
+/chef/cookbooks
+/chef/Cheffile.lock

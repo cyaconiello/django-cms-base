@@ -1,0 +1,73 @@
+{
+    "name": "staging",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Django VM for Landcare served via AWS",
+    "run_list": [
+        "recipe[apt]",
+        "recipe[git]",
+        "recipe[landcare::git]",
+        "recipe[memcached]",
+        "recipe[python]",
+        "recipe[uwsgi]",
+        "recipe[nginx]",
+        "recipe[landcare::django]",
+        "recipe[landcare::nginx]",
+        "recipe[newrelic::server_monitor_agent]",
+        "recipe[newrelic::python_agent]"
+    ],
+    "default_attributes": {
+        "nginx": {
+            "init_style": "upstart",
+            "worker_processes": 8,
+            "worker_connections": 10000,
+            "multi_accept": true,
+            "gzip": "on"
+        },
+        "nginx_uwsgi_vhost": {
+            "redirected_server_names": [
+            ],
+            "force_ssl": false,
+            "locations": ["/media/", "/static/"],
+            "error_pages": [
+                { "code": "400", "location": "/static/400.html" },
+                { "code": "403", "location": "/static/403.html" },
+                { "code": "404", "location": "/static/404.html" },
+                { "code": "500 502 503 504", "location": "/static/500.html" }
+            ],
+            "upstream": "/home/ubuntu/uwsgi.sock"
+        },
+        "app": {
+            "paths": {
+                "site": "/home/ubuntu",
+                "wsgi": "/home/ubuntu/app/landcare"
+            },
+            "user": "ubuntu",
+            "name": "staging-1.landcare.com",
+            "DJANGO_SETTINGS_MODULE": "landcare.settings.staging",
+            "uwsgi_stats": "0.0.0.0:8080",
+            "uwsgi_processes": 1,
+            "uwsgi_threads": 4,
+            "uwsgi_max_worker_memory": 200
+        },
+        "newrelic": {
+            "license": "808f8910ac1be6f0488593144b5c54bee8095af2",
+            "python_agent": {
+                "agent_action": "install",
+                "config_file": "/home/ubuntu/newrelic.ini"
+            },
+            "application_monitoring": {
+                "app_name": "Landcare Staging"
+            }
+        },
+        "memcached": {
+            "memory": 250,
+            "user": "ubuntu",
+            "port": 11211,
+            "listen": "127.0.0.1",
+            "logfilepath": "/home/ubuntu/logs/",
+            "logfilename": "memcached.log",
+            "threads": 4
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{% load cms_tags menu_tags sekizai_tags staticfiles %}
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        {% render_block "css" %}
+
+        <script type="text/javascript" src="{% static "dist/Global.js" %}"></script>
+        <script src="https://use.typekit.net/dtv3kuf.js"></script>
+        <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    </head>
+    <body class="{% block body_class %}{% endblock body_class %}">
+        {% cms_toolbar %}
+        <div class="container">
+            <header id="header"></header>
+            <div id="content">
+                {% block content %}{% endblock content %}
+            </div>
+            <footer id="footer"></footer>
+        </div>
+        {% render_block "js" %}
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

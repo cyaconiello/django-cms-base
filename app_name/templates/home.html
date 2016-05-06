@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load cms_tags staticfiles %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock %}
+
+{% block body_class %}home{% endblock body_class %}
+
+{% block content %}
+    <h1>home page</h1>
+    {% placeholder "header" %}
+    
+
+    {% placeholder "slideshow" %}
+    
+    {% placeholder "content_block_row_1" %}
+
+    {% placeholder "content_block_row_2" %}
+
+    {% placeholder "content_block_row_3" %}
+
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static "dist/Home.js" %}"></script>
+{% endblock %}

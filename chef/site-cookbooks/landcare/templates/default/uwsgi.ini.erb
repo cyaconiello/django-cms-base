@@ -1,0 +1,21 @@
+[uwsgi]
+socket = <%= node[:app][:paths][:site] %>/uwsgi.sock
+chdir = <%= node[:app][:paths][:site] %>/app
+wsgi-file = <%= node[:app][:paths][:wsgi] %>/wsgi.py
+pythonpath = <%= node[:app][:paths][:site] %>
+logto = <%= node[:app][:paths][:site] %>/logs/uwsgi.log
+home = <%= node[:app][:paths][:site] %>/venv
+env = DJANGO_SETTINGS_MODULE=<%= node[:app][:DJANGO_SETTINGS_MODULE] %>
+env = NEW_RELIC_CONFIG_FILE=<%= node[:newrelic][:python_agent][:config_file] %>
+chmod-socket = 666
+enable-threads = true
+single-interpreter = true
+socket-timeout = 60
+master
+processes = <%= node[:app][:uwsgi_processes] %>
+threads = <%= node[:app][:uwsgi_threads] %>
+buffer-size = 32768
+uid = <%= node[:app][:user] %>
+gid = <%= node[:app][:user] %>
+stats = <%= node[:app][:uwsgi_stats] %>
+reload-on-rss = <%= node[:app][:uwsgi_max_worker_memory] %>
